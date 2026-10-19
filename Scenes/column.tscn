@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://Materials/ColumnMaterial.tres" id="1_colmat"]
+
+[sub_resource type="CylinderMesh" id="CylMesh_cap"]
+material = ExtResource("1_colmat")
+top_radius = 0.3
+bottom_radius = 0.34
+height = 0.16
+radial_segments = 16
+
+[sub_resource type="CylinderMesh" id="CylMesh_shaft"]
+material = ExtResource("1_colmat")
+top_radius = 0.19
+bottom_radius = 0.21
+height = 2.6
+radial_segments = 16
+
+[sub_resource type="CylinderMesh" id="CylMesh_base"]
+material = ExtResource("1_colmat")
+top_radius = 0.3
+bottom_radius = 0.34
+height = 0.16
+radial_segments = 16
+
+[sub_resource type="CylinderShape3D" id="CylShape3D_col"]
+radius = 0.25
+height = 3.0
+
+[node name="Column" type="Node3D"]
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
+mesh = SubResource("CylMesh_base")
+
+[node name="Shaft" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46, 0)
+mesh = SubResource("CylMesh_shaft")
+
+[node name="Capital" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92, 0)
+mesh = SubResource("CylMesh_cap")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylShape3D_col")

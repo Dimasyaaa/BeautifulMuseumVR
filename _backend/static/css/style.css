@@ -1,0 +1,142 @@
+/* Глобальные переменные и настройки */
+:root {
+    --primary-color: #2c3e50;     
+    --accent-color: #d4af37;        
+    --bg-light: #f8f9fa;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --card-hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-light);
+    color: #333;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Плавное появление страницы */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Навигация */
+.navbar {
+    background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 100%) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--accent-color) !important;
+}
+.nav-link {
+    transition: color 0.3s ease;
+}
+.nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Карточки (Dashboard и формы) */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-hover-shadow);
+}
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+/* Градиентные карточки статистики */
+.bg-primary { background: linear-gradient(135deg, #3498db, #2980b9) !important; }
+.bg-success { background: linear-gradient(135deg, #2ecc71, #27ae60) !important; }
+.bg-info { background: linear-gradient(135deg, #1abc9c, #16a085) !important; }
+
+/* Таблицы */
+.table {
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Отступы между строками */
+}
+.table tbody tr {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: transform 0.2s ease;
+}
+.table tbody tr:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+.table td, .table th {
+    border: none;
+    vertical-align: middle;
+}
+.table thead th {
+    border-bottom: 2px solid #eee !important;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+/* Формы */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    padding: 10px 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* Кнопки */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.btn-primary:hover {
+    background-color: #1a2a3a;
+    transform: translateY(-1px);
+}
+
+/* Предпросмотр изображения */
+.image-preview-container {
+    width: 100%;
+    height: 250px;
+    border: 2px dashed #dee2e6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+.image-preview-container:hover {
+    border-color: var(--accent-color);
+}
+.image-preview-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: none; 
+}
+.image-preview-container .placeholder-text {
+    color: #adb5bd;
+    text-align: center;
+}

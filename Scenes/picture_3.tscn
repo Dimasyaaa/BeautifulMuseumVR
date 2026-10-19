@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cvvt5wj1uiv4r"]
+
+[ext_resource type="Material" path="res://Materials/TrimMaterial.tres" id="1_s7ku0"]
+[ext_resource type="Material" path="res://Materials/CanvasPlaceholder.tres" id="2_vjsrw"]
+[ext_resource type="PackedScene" uid="uid://6r8lkrd7rylt" path="res://Scenes/info_stand.tscn" id="3_vjsrw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_back"]
+material = ExtResource("1_s7ku0")
+size = Vector3(0.8, 1, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_top"]
+material = ExtResource("1_s7ku0")
+size = Vector3(0.92, 0.1, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bottom"]
+material = ExtResource("1_s7ku0")
+size = Vector3(0.92, 0.1, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_left"]
+material = ExtResource("1_s7ku0")
+size = Vector3(0.1, 1, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_right"]
+material = ExtResource("1_s7ku0")
+size = Vector3(0.1, 1, 0.08)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_canvas"]
+material = ExtResource("2_vjsrw")
+size = Vector2(0.62, 0.82)
+
+[node name="Picture3" type="Node3D" unique_id=953412116]
+
+[node name="Back" type="MeshInstance3D" parent="." unique_id=1580692587]
+mesh = SubResource("BoxMesh_back")
+
+[node name="BorderTop" type="MeshInstance3D" parent="." unique_id=94821253]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.015)
+mesh = SubResource("BoxMesh_top")
+
+[node name="BorderBottom" type="MeshInstance3D" parent="." unique_id=847440745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.015)
+mesh = SubResource("BoxMesh_bottom")
+
+[node name="BorderLeft" type="MeshInstance3D" parent="." unique_id=571058184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41, 0, 0.015)
+mesh = SubResource("BoxMesh_left")
+
+[node name="BorderRight" type="MeshInstance3D" parent="." unique_id=1192869063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41, 0, 0.015)
+mesh = SubResource("BoxMesh_right")
+
+[node name="Canvas" type="MeshInstance3D" parent="." unique_id=2005870532]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.0653369)
+mesh = SubResource("PlaneMesh_canvas")
+
+[node name="InfoStand" parent="." unique_id=1715612451 instance=ExtResource("3_vjsrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4652624, -1.6654459, 0.6425141)

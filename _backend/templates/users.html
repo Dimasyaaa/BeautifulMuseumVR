@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Пользователи - VR Museum{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-people"></i> Посетители музея</h1>
+    <a href="/admin/users/new" class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Добавить пользователя
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Имя</th>
+                        <th>Последний визит</th>
+                        <th>Всего просмотров</th>
+                        <th>В избранном</th>
+                        <th>Баллы</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td><code>{{ user.user_id }}</code></td>
+                        <td>{{ user.username or 'Аноним' }}</td>
+                        <td>{{ user.last_visit.strftime('%d.%m.%Y %H:%M') if user.last_visit else 'Никогда' }}</td>
+                        <td><span class="badge bg-info">{{ user.total_views or 0 }}</span></td>
+                        <td><span class="badge bg-warning">{{ user.total_favorites or 0 }}</span></td>
+                        <td><span class="badge bg-success">{{ user.total_points or 0 }}</span></td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="/admin/users/{{ user.user_id }}/progress" class="btn btn-outline-primary" title="Прогресс">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="/admin/users/{{ user.user_id }}/edit" class="btn btn-outline-secondary" title="Редактировать">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form action="/admin/users/{{ user.user_id }}/delete" method="POST" 
+                                      onsubmit="return confirm('Удалить пользователя {{ user.username or user.user_id }} и все его данные? Это действие нельзя отменить.');" 
+                                      style="display:inline;">
+                                    <button type="submit" class="btn btn-outline-danger" title="Удалить">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="7" class="text-center py-4 text-muted">Пользователей пока нет</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

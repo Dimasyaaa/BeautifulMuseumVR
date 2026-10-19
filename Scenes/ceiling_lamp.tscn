@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c3ni4jk6nsiig"]
+
+[ext_resource type="Material" path="res://Materials/MetalDarkMaterial.tres" id="1_mtmat"]
+[ext_resource type="Material" path="res://Materials/LampPanelMaterial.tres" id="2_lpmat"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_house"]
+material = ExtResource("1_mtmat")
+size = Vector3(0.9, 0.06, 0.32)
+
+[sub_resource type="BoxMesh" id="BoxMesh_panel"]
+material = ExtResource("2_lpmat")
+size = Vector3(0.78, 0.05, 0.24)
+
+[node name="CeilingLamp" type="Node3D" unique_id=192527138]
+
+[node name="Housing" type="MeshInstance3D" parent="." unique_id=873666021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.955, 0)
+mesh = SubResource("BoxMesh_house")
+
+[node name="Panel" type="MeshInstance3D" parent="." unique_id=1762088401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.905, 0)
+mesh = SubResource("BoxMesh_panel")
+
+[node name="Light" type="OmniLight3D" parent="." unique_id=1863402893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, 0)
+light_color = Color(1, 0.94, 0.85, 1)
+light_energy = 1.1
+omni_range = 5.5
+omni_attenuation = 1.4

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}Вопросы викторины - VR Museum{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-question-circle"></i> Вопросы викторины</h1>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuestionModal">
+        <i class="bi bi-plus-lg"></i> Добавить вопрос
+    </button>
+</div>
+
+<!-- Модальное окно добавления вопроса -->
+<div class="modal fade" id="addQuestionModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Новый вопрос</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="/admin/quiz/new">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Экспонат *</label>
+                        <select name="exhibit_id" class="form-select" required>
+                            {% for ex in exhibits %}
+                            <option value="{{ ex.id }}">{{ ex.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Вопрос *</label>
+                        <textarea name="question" class="form-control" rows="2" required></textarea>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Вариант A *</label>
+                            <input type="text" name="option_a" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Вариант B *</label>
+                            <input type="text" name="option_b" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Вариант C *</label>
+                            <input type="text" name="option_c" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Вариант D *</label>
+                            <input type="text" name="option_d" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <label class="form-label">Правильный ответ *</label>
+                            <select name="correct_answer" class="form-select" required>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Баллы за правильный ответ</label>
+                            <input type="number" name="points" class="form-control" value="10" min="1" max="100">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить вопрос</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Таблица вопросов -->
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Экспонат</th>
+                        <th>Вопрос</th>
+                        <th>Правильный ответ</th>
+                        <th>Баллы</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for q in questions %}
+                    <tr>
+                        <td>{{ q.id }}</td>
+                        <td><strong>{{ q.exhibit_title }}</strong></td>
+                        <td>{{ q.question }}</td>
+                        <td><span class="badge bg-success">{{ q.correct_answer }}</span></td>
+                        <td>{{ q.points }}</td>
+                        <td>
+                            <form action="/admin/quiz/{{ q.id }}/delete" method="POST" onsubmit="return confirm('Удалить этот вопрос?');" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="6" class="text-center py-4 text-muted">Вопросов пока нет</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

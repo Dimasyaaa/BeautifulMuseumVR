@@ -1,0 +1,29 @@
+[gd_resource type="Environment" format=3]
+
+[resource]
+background_mode = 1
+background_color = Color(0.012, 0.016, 0.028, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.22, 0.27, 0.38, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.35
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 1.0
+tonemap_white = 2.0
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 0.8
+glow_levels/4 = 0.4
+glow_levels/6 = 0.2
+glow_normalized = true
+glow_intensity = 0.35
+glow_strength = 1.0
+glow_bloom = 0.12
+glow_blend_mode = 0
+glow_hdr_threshold = 0.9
+glow_hdr_scale = 2.0
+adjustment_enabled = true
+adjustment_brightness = 1.0
+adjustment_contrast = 1.08
+adjustment_saturation = 1.12

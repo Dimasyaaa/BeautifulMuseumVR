@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Прогресс {{ user.username or user.user_id }} - VR Museum{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-bar-chart"></i> Прогресс пользователя</h1>
+    <a href="/admin/users" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Назад</a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body text-center">
+                <h3>{{ user.username or 'Аноним' }}</h3>
+                <small>{{ user.user_id }}</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">История просмотров</h5>
+            <div class="btn-group" role="group">
+                <a href="/admin/users/{{ user.user_id }}/progress" 
+                   class="btn btn-sm {% if not request.query_params.get('filter') %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                    Все
+                </a>
+                <a href="/admin/users/{{ user.user_id }}/progress?filter=favorites" 
+                   class="btn btn-sm {% if request.query_params.get('filter') == 'favorites' %}btn-warning{% else %}btn-outline-warning{% endif %}">
+                    <i class="bi bi-heart-fill"></i> Только избранное
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">
+            {% if request.query_params.get('filter') == 'favorites' %}
+            <i class="bi bi-heart-fill text-danger"></i> Избранные экспонаты
+            {% else %}
+            Все просмотренные экспонаты
+            {% endif %}
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Экспонат</th>
+                        <th>Дата просмотра</th>
+                        <th>Статус</th>
+                        <th>Баллы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in progress %}
+                    <tr class="{{ 'table-warning' if p.is_favorite else '' }}">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="{{ p.image_url }}" class="rounded me-2" 
+                                     style="width: 40px; height: 40px; object-fit: cover;">
+                                <div>
+                                    <strong>{{ p.title }}</strong>
+                                    {% if p.is_favorite %}
+                                    <i class="bi bi-heart-fill text-danger ms-2" title="В избранном"></i>
+                                    {% endif %}
+                                    <br>
+                                    <small class="text-muted">{{ p.author }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ p.visit_time.strftime('%d.%m.%Y %H:%M') if p.visit_time else '-' }}</td>
+                        <td>
+                            {% if p.is_favorite %}
+                            <span class="badge bg-danger"><i class="bi bi-heart-fill"></i> Избранное</span>
+                            {% elif p.is_viewed %}
+                            <span class="badge bg-secondary">Просмотрен</span>
+                            {% else %}
+                            <span class="badge bg-light text-dark">Пропущен</span>
+                            {% endif %}
+                        </td>
+                        <td><span class="badge bg-success">{{ p.points }}</span></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">
+                            {% if request.query_params.get('filter') == 'favorites' %}
+                            У пользователя пока нет избранных экспонатов
+                            {% else %}
+                            Пользователь еще не смотрел экспонаты
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

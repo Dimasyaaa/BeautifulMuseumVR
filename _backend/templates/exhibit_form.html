@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Редактирование' if is_edit else 'Добавление' }} экспоната - VR Museum{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-{{ 'pencil' if is_edit else 'plus-circle' }}"></i> 
+                    {{ 'Редактирование' if is_edit else 'Новый' }} экспонат
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ '/admin/exhibits/' ~ exhibit.id ~ '/edit' if is_edit else '/admin/exhibits/new' }}">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label">Название *</label>
+                            <input type="text" name="title" class="form-control" 
+                                   value="{{ exhibit.title if exhibit else '' }}" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Год создания *</label>
+                            <input type="number" name="year" class="form-control" 
+                                   value="{{ exhibit.year if exhibit else '' }}" required>
+                        </div>
+                        
+                        <div class="col-md-8">
+                            <label class="form-label">Автор *</label>
+                            <input type="text" name="author" class="form-control" 
+                                   value="{{ exhibit.author if exhibit else '' }}" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Категория (Зал)</label>
+                            <select name="category" class="form-select">
+                                <option value="main_hall" {% if exhibit and exhibit.category == 'main_hall' %}selected{% endif %}>Главный зал</option>
+                                <option value="second_hall" {% if exhibit and exhibit.category == 'second_hall' %}selected{% endif %}>Второй зал</option>
+                                <option value="special" {% if exhibit and exhibit.category == 'special' %}selected{% endif %}>Спец. выставка</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label class="form-label">Описание</label>
+                            <textarea name="description" class="form-control" rows="4">{{ exhibit.description if exhibit else '' }}</textarea>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">URL изображения *</label>
+                            <input type="url" id="image_url" name="image_url" class="form-control" 
+                                   value="{{ exhibit.image_url if exhibit else '' }}" required>
+                            <div class="form-text">Вставьте прямую ссылку на картинку (JPG/PNG)</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Предпросмотр</label>
+                            <div class="image-preview-container">
+                                <div id="preview_placeholder" class="placeholder-text">
+                                    <i class="bi bi-image display-4"></i><br>Изображение появится здесь
+                                </div>
+                                <img id="preview_img" src="{{ exhibit.image_url if exhibit else '' }}" alt="Preview">
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label class="form-label">URL аудиогида (необязательно)</label>
+                            <input type="url" name="audio_url" class="form-control" 
+                                   value="{{ exhibit.audio_url if exhibit else '' }}">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-between align-items-center">
+                        <a href="/admin/exhibits" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Отмена
+                        </a>
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-check-lg"></i> {{ 'Сохранить изменения' if is_edit else 'Сохранить экспонат' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

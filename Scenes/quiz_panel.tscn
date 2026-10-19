@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://blwglo43e5xtr"]
+
+[ext_resource type="Script" uid="uid://d4ier4n8pd2dg" path="res://Scripts/QuizPanel.gd" id="1_qzp"]
+[ext_resource type="Material" uid="uid://mckd064hierh" path="res://Materials/PanelMaterial.tres" id="2_ilefj"]
+[ext_resource type="Script" uid="uid://bsqmhcn3qxikx" path="res://Scripts/VRButton.gd" id="2_vrb"]
+
+[sub_resource type="BoxMesh" id="mesh_plate"]
+material = ExtResource("2_ilefj")
+size = Vector3(1.4, 1.5, 0.03)
+
+[node name="QuizPanel" type="Node3D" unique_id=223310491]
+script = ExtResource("1_qzp")
+
+[node name="Plate" type="MeshInstance3D" parent="." unique_id=1779626177]
+transform = Transform3D(-0.9990448, 0, -0.043698546, 0, 1, 0, 0.043698546, 0, -0.9990448, 0, 0, 0)
+mesh = SubResource("mesh_plate")
+
+[node name="QuestionLabel" type="Label3D" parent="Plate" unique_id=132961176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.02)
+pixel_size = 0.0015
+modulate = Color(0.96, 0.98, 1, 1)
+text = "Вопрос викторины"
+outline_size = 6
+autowrap_mode = 3
+width = 850.0
+
+[node name="ResultLabel" type="Label3D" parent="Plate" unique_id=354936566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.68, 0.02)
+pixel_size = 0.0016
+modulate = Color(1, 0.9, 0.4, 1)
+outline_size = 6
+width = 850.0
+
+[node name="BtnA" type="Area3D" parent="Plate" unique_id=1850176058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0.02)
+script = ExtResource("2_vrb")
+label_text = "A"
+button_size = Vector3(1.2, 0.14, 0.03)
+
+[node name="BtnB" type="Area3D" parent="Plate" unique_id=665426039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.02)
+script = ExtResource("2_vrb")
+label_text = "B"
+button_size = Vector3(1.2, 0.14, 0.03)
+
+[node name="BtnC" type="Area3D" parent="Plate" unique_id=351129791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, 0.02)
+script = ExtResource("2_vrb")
+label_text = "C"
+button_size = Vector3(1.2, 0.14, 0.03)
+
+[node name="BtnD" type="Area3D" parent="Plate" unique_id=626423574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.26, 0.02)
+script = ExtResource("2_vrb")
+label_text = "D"
+button_size = Vector3(1.2, 0.14, 0.03)

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://br2x80vf38iyv"]
+
+[ext_resource type="PackedScene" uid="uid://bhkamb7rk6qkq" path="res://Scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://dfkjhlhtdp1ob" path="res://Scenes/first_hall.tscn" id="2_museum"]
+[ext_resource type="PackedScene" uid="uid://dip1ijxaitvm6" path="res://Scenes/corridor.tscn" id="3_corridor"]
+[ext_resource type="PackedScene" uid="uid://cvfvvljhy077g" path="res://Scenes/second_hall.tscn" id="4_second"]
+[ext_resource type="AudioStream" uid="uid://bpe3h4n2f5kd6" path="res://Audio/fon.wav" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="6_21xkr"]
+
+[node name="main" type="Node3D" unique_id=96653570]
+
+[node name="Player" parent="." unique_id=1393384579 instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7968178, 3.5)
+
+[node name="FirtsHall" parent="." unique_id=1429087434 instance=ExtResource("2_museum")]
+
+[node name="Corridor" parent="." unique_id=2019279508 instance=ExtResource("3_corridor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9, 0, 0)
+
+[node name="SecondHall" parent="." unique_id=262977712 instance=ExtResource("4_second")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9, 0, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1036384985]
+stream = ExtResource("5_kry3j")
+autoplay = true
+
+[node name="StartXR" parent="." unique_id=1385074174 instance=ExtResource("6_21xkr")]
